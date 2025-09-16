@@ -13,14 +13,15 @@ OUTDIR ?= out
 .PHONY: help
 help:
 	@echo "Targets:"
-	@echo "  zip              - Zip a folder with Python (FOLDER, ZIP)"
-	@echo "  encode           - Encode ZIP -> TXT (ZIP -> ENCODED)"
-	@echo "  split            - Split ENCODED into CHUNKS"
-	@echo "  server-all       - Run zip -> encode -> split"
-	@echo "  merge            - Merge chunks on client (ENCODED_BASE, CHUNKS, MERGED)"
-	@echo "  decode           - Decode + unzip (TXT, OUTDIR)"
-	@echo "  client-all       - merge -> decode"
-	@echo "  checksum         - Print SHA256 of FILE"
+	@echo "  zip                - Zip a folder with Python (FOLDER, ZIP)"
+	@echo "  encode             - Encode ZIP -> TXT (ZIP -> ENCODED)"
+	@echo "  split              - Split ENCODED into CHUNKS"
+	@echo "  server-all         - Run zip -> encode -> split"
+	@echo "  merge              - Merge chunks on client (ENCODED_BASE, CHUNKS, MERGED)"
+	@echo "  decode             - Decode + unzip (TXT, OUTDIR)"
+	@echo "  client-all         - merge -> decode"
+	@echo "  checksum           - Print SHA256 of FILE"
+	@echo "  view-chunk         - Interactively view a large chunk for copying (FILE)"
 
 # -------- Server side --------
 
@@ -71,3 +72,12 @@ checksum:
 		exit 1; \
 	fi
 	python3 src/hash_file.py "$$FILE"
+
+.PHONY: view-chunk
+view-chunk:
+	@if [ -z "$$FILE" ]; then \
+		echo "Usage: make view-chunk FILE=<path/to/chunk_file.txt>"; \
+		exit 1; \
+	fi
+	@chmod +x scripts/chunk_view.sh
+	@bash scripts/chunk_view.sh "$$FILE"
