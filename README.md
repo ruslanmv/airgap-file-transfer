@@ -179,4 +179,4 @@ airgap-file-transfer/
 
 ## License
 
-MIT — see [LICENSE](LICENSE)
+see [LICENSE](LICENSE)
