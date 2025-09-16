@@ -1,0 +1,8 @@
+# build artifacts
+*.zip
+*_encoded.txt
+*_encoded.txt_*.txt
+*_decoded.zip
+out/
+__pycache__/
+*.pyc
